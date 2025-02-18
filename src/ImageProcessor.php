@@ -108,6 +108,8 @@ public function generateStandardResponsivesImages($fileRoute, $inFolder=true){
 
 public function generateResponsivesImages($fileRoute,$sizes, $inFolder=true){
 
+    echo "Procesando el archivo $fileRoute\n";
+
     $destDirRoute=null;
 
     $fileName=NameHelper::getFileOrDirName($fileRoute);
@@ -144,13 +146,21 @@ public function generateResponsivesImages($fileRoute,$sizes, $inFolder=true){
 
         if(!file_exists(
             NameHelper::concatenateRoutes(
-            $destDirRoute,
+                dirname($finalFileRoute),
                 $this->getImageNameVariation(
                     $fileName,
                     $size,
                 )
             )
         )){
+            echo "Generando la variacion ".NameHelper::concatenateRoutes(
+                dirname($finalFileRoute),
+                $this->getImageNameVariation(
+                    $fileName,
+                    $size,
+                )
+            )."\n";
+
             $this->scaleImage($finalFileRoute,$size,null,$destDirRoute);
         }
 
